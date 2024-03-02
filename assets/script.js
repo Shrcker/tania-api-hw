@@ -9,6 +9,7 @@ const questionLabel = document.querySelector('#ribbon');
 const quizQuestion = document.querySelector('#question');
 const scoreBoard = document.querySelector('#score');
 
+const grades = 'ABCDEF'.split('');
 
 const answerList = { // Object to contain valid answer values and their associated questions
     prompts: ['Where\'s A?', 'Where\'s B?', 'Where\'s C?'],
@@ -55,7 +56,14 @@ function advanceCheck() { // Advances questions and recognizes when user reaches
 
 function endGame() { // Function to end the game and display the final score
     questionLabel.innerText = 'Game Over';
-    quizQuestion.innerText = `Score: ${scoreCount}`;
+
+    if (scoreCount === 3) {
+        quizQuestion.innerText = `You got an ${grades[0]}!`;
+    } else if (scoreCount === 2) {
+        quizQuestion.innerText = `You got an ${grades[1]}!`;
+    } else {
+        quizQuestion.innerText = `You got an ${grades[5]}!`;
+    }
     questionForm.style.display = 'none';
 }
 
