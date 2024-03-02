@@ -6,6 +6,8 @@ const submitButton = document.querySelector('#submitBtn');
 const legendText = document.querySelector('legend');
 const questionLabel = document.querySelector('#ribbon');
 const quizQuestion = document.querySelector('#question');
+const scoreBoard = document.querySelector('#score');
+
 
 const answerList = { // Object to contain valid answer values and their associated questions
     prompts: ['Where\'s A?', 'Where\'s B?', 'Where\'s C?'],
@@ -15,6 +17,8 @@ const savedAnswers = [];
 var quizPosition = 0; // Index for answerList[]
 questionLabel.innerHTML = `Question ${quizPosition + 1}:`; // Initializes Question count
 quizQuestion.innerHTML = answerList.prompts[quizPosition];
+var scoreCount = 0;
+scoreBoard.innerText = `Score: ${scoreCount}`;
 
 function submit(event) {
     event.preventDefault();
@@ -22,10 +26,14 @@ function submit(event) {
     // Returns value of any checked radio
     if (userAnswer.value === answerList.answers[quizPosition]) { // Basic If check for if answer is "right"
         legendText.innerHTML = 'Correct!';
+        scoreCount++;
+        scoreBoard.innerText = `Score: ${scoreCount}`;
         savedAnswers.push(userAnswer.value);
         advanceCheck();
     } else if (userAnswer.value !== answerList.answers[quizPosition]) {
         legendText.innerHTML = 'Wrong!';
+        scoreCount--;
+        scoreBoard.innerText = `Score: ${scoreCount}`;
         savedAnswers.push(userAnswer.value);
         advanceCheck();
     } else { 
