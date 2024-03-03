@@ -34,7 +34,6 @@ function submit(event) {
         timeSet += 15; 
         legendText.innerHTML = 'Correct!';
         scoreCount++;
-        console.log(scoreCount);
         savedAnswers.push(userAnswer.value);
         advanceCheck();
     } else if (userAnswer.value !== answerList.answers[quizPosition]) {
