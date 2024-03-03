@@ -14,6 +14,9 @@ const nameField = document.querySelector('#nameField');
 
 const grades = 'ABCDEF'.split('');
 
+var nameList = [];
+var scoreList = [];
+
 const answerList = { // Object to contain valid answer values and their associated questions
     prompts: ['Where\'s A?', 'Where\'s B?', 'Where\'s C?'],
     answers: 'abc'.split('') 
@@ -86,8 +89,26 @@ function timer () { // Timer ticks down, ending the game prematurely if it ticks
 
 function saveEntry (event) {
     event.preventDefault();
-    localStorage["name"] = nameField.value;
-    localStorage["score"] = scoreCount;
+    nameList.push(nameField.value);
+    scoreList.push(scoreCount);
+    var getNames = JSON.parse(localStorage.getItem('names'));
+    var getScores = JSON.parse(localStorage.getItem('score'));
+    if (getNames === null) { // If there are any other score entries, create leaderboard
+        nameList.push(nameField.value);
+        scoreList.push(scoreCount);
+        localStorage.setItem('names', JSON.stringify(nameList));
+        localStorage.setItem('score', JSON.stringify(scoreList));
+    } else {
+        //nameList.push(nameField.value);
+        scoreList.push(scoreCount);
+        getScores.push(scoreCount);
+        getNames.push(nameField.value)
+        localStorage.setItem('names', getNames);
+        localStorage.setItem('score', getScores);
+    }
+
+
+
 }
 
 var interval = setInterval(timer, 1000);
