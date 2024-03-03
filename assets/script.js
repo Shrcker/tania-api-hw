@@ -34,13 +34,13 @@ function submit(event) {
         timeSet += 15; 
         legendText.innerHTML = 'Correct!';
         scoreCount++;
+        console.log(scoreCount);
         savedAnswers.push(userAnswer.value);
         advanceCheck();
     } else if (userAnswer.value !== answerList.answers[quizPosition]) {
         // Wrong answers decrease time left
         timeSet -= 15;
         legendText.innerHTML = 'Wrong!';
-        scoreCount--;
         savedAnswers.push(userAnswer.value);
         advanceCheck();
     } else { 
@@ -68,7 +68,7 @@ function endGame() { // Function to end the game and display the final score
     if (scoreCount === 3) {
         quizQuestion.innerText = `You got an ${grades[0]}!`;
     } else if (scoreCount === 2) {
-        quizQuestion.innerText = `You got an ${grades[1]}!`;
+        quizQuestion.innerText = `You got a ${grades[1]}!`;
     } else {
         quizQuestion.innerText = `You got an ${grades[5]}!`;
     }
