@@ -19,7 +19,7 @@
             <form id="mainForm">
                 <fieldset>
                     <legend>Choose your answer</legend>
-                    <div id="form">
+                    <div id="radioForm">
                         <input type="radio" id="choiceA" name="choices" value="a"/>
                         <label for="choiceA">A</label>
                         <input type="radio" id="choiceB" name="choices" value="b"/>
@@ -31,6 +31,12 @@
                         <button id="submitBtn" type="submit">Submit</button>
                     </div>
                 </fieldset>
+            </form>
+            <form>
+                <legend>Save your score!</legend>
+                <label>Name:</label><br>
+                <input type="text" id="nameField"/>
+                <button type="submit" id="nameEntry">Submit</button>
             </form>
         </main>
         <script src="./assets/script.js"></script>

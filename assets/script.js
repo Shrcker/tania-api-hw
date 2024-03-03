@@ -2,13 +2,15 @@ const buttonA = document.querySelector('#choiceA');
 const buttonB = document.querySelector('#choiceB');
 const buttonC = document.querySelector('#choiceC');
 const questionForm = document.querySelector('#mainForm > *');
-const radioForm = document.querySelector('#form');
+const radioForm = document.querySelector('#radioForm');
 const submitButton = document.querySelector('#submitBtn');
 const legendText = document.querySelector('legend');
 const questionLabel = document.querySelector('#ribbon');
 const quizQuestion = document.querySelector('#question');
 const scoreBoard = document.querySelector('#score');
 const timeClock = document.querySelector('#timer');
+const nameEntryBtn = document.querySelector('#nameEntry');
+const nameField = document.querySelector('#nameField');
 
 const grades = 'ABCDEF'.split('');
 
@@ -65,11 +67,11 @@ function endGame() { // Function to end the game and display the final score
     timeClock.innerText = '';
     clearInterval(interval);
     if (scoreCount === 3) {
-        quizQuestion.innerText = `You got an ${grades[0]}!`;
+        quizQuestion.innerText = `You got an ${grades[0]}! Score: 3`;
     } else if (scoreCount === 2) {
-        quizQuestion.innerText = `You got a ${grades[1]}!`;
+        quizQuestion.innerText = `You got a ${grades[1]}! Score: 2`;
     } else {
-        quizQuestion.innerText = `You got an ${grades[5]}!`;
+        quizQuestion.innerText = `You got an ${grades[5]}! \n Score: ${scoreCount}`;
     }
     questionForm.style.display = 'none';
 }
@@ -82,5 +84,12 @@ function timer () { // Timer ticks down, ending the game prematurely if it ticks
     }
 }
 
+function saveEntry (event) {
+    event.preventDefault();
+    localStorage["name"] = nameField.value;
+    localStorage["score"] = scoreCount;
+}
+
 var interval = setInterval(timer, 1000);
 submitButton.addEventListener("click", submit);
+nameEntryBtn.addEventListener('click', saveEntry);
