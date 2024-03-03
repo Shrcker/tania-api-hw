@@ -11,6 +11,7 @@ const scoreBoard = document.querySelector('#score');
 const timeClock = document.querySelector('#timer');
 const nameEntryBtn = document.querySelector('#nameEntry');
 const nameField = document.querySelector('#nameField');
+const entryField = document.querySelector('#nameForm');
 
 const grades = 'ABCDEF'.split('');
 
@@ -71,7 +72,7 @@ function endGame() { // Function to end the game and display the final score
     clearInterval(interval);
     if (scoreCount === 3) {
         quizQuestion.innerText = `You got an ${grades[0]}! Score: 3`;
-    } else if (scoreCount === 2) {
+    } else if (scoreCount === 2 || 1) {
         quizQuestion.innerText = `You got a ${grades[1]}! Score: 2`;
     } else {
         quizQuestion.innerText = `You got an ${grades[5]}! \n Score: ${scoreCount}`;
@@ -89,26 +90,10 @@ function timer () { // Timer ticks down, ending the game prematurely if it ticks
 
 function saveEntry (event) {
     event.preventDefault();
-    nameList.push(nameField.value);
-    scoreList.push(scoreCount);
-    var getNames = JSON.parse(localStorage.getItem('names'));
-    var getScores = JSON.parse(localStorage.getItem('score'));
-    if (getNames === null) { // If there are any other score entries, create leaderboard
-        nameList.push(nameField.value);
-        scoreList.push(scoreCount);
-        localStorage.setItem('names', JSON.stringify(nameList));
-        localStorage.setItem('score', JSON.stringify(scoreList));
-    } else {
-        //nameList.push(nameField.value);
-        scoreList.push(scoreCount);
-        getScores.push(scoreCount);
-        getNames.push(nameField.value)
-        localStorage.setItem('names', getNames);
-        localStorage.setItem('score', getScores);
-    }
-
-
-
+    localStorage.setItem('name', JSON.stringify(nameField.value));
+    localStorage.setItem('score', JSON.stringify(scoreCount));
+    quizQuestion.innerText = 'Saved!';
+    entryField.style.display = 'none';
 }
 
 var interval = setInterval(timer, 1000);
