@@ -11,8 +11,12 @@ const scoreBoard = document.querySelector('#score');
 const timeClock = document.querySelector('#timer');
 const nameEntryBtn = document.querySelector('#nameEntry');
 const nameField = document.querySelector('#nameField');
+const entryField = document.querySelector('#nameForm');
 
 const grades = 'ABCDEF'.split('');
+
+var nameList = [];
+var scoreList = [];
 
 const answerList = { // Object to contain valid answer values and their associated questions
     prompts: ['Where\'s A?', 'Where\'s B?', 'Where\'s C?'],
@@ -68,7 +72,7 @@ function endGame() { // Function to end the game and display the final score
     clearInterval(interval);
     if (scoreCount === 3) {
         quizQuestion.innerText = `You got an ${grades[0]}! Score: 3`;
-    } else if (scoreCount === 2) {
+    } else if (scoreCount === 2 || 1) {
         quizQuestion.innerText = `You got a ${grades[1]}! Score: 2`;
     } else {
         quizQuestion.innerText = `You got an ${grades[5]}! \n Score: ${scoreCount}`;
@@ -86,8 +90,10 @@ function timer () { // Timer ticks down, ending the game prematurely if it ticks
 
 function saveEntry (event) {
     event.preventDefault();
-    localStorage["name"] = nameField.value;
-    localStorage["score"] = scoreCount;
+    localStorage.setItem('name', JSON.stringify(nameField.value));
+    localStorage.setItem('score', JSON.stringify(scoreCount));
+    quizQuestion.innerText = 'Saved!';
+    entryField.style.display = 'none';
 }
 
 var interval = setInterval(timer, 1000);
