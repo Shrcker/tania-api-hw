@@ -8,6 +8,7 @@ const legendText = document.querySelector('legend');
 const questionLabel = document.querySelector('#ribbon');
 const quizQuestion = document.querySelector('#question');
 const scoreBoard = document.querySelector('#score');
+const timeClock = document.querySelector('#timer');
 
 const grades = 'ABCDEF'.split('');
 
@@ -20,20 +21,25 @@ var quizPosition = 0; // Index for answerList[]
 questionLabel.innerHTML = `Question ${quizPosition + 1}:`; // Initializes Question count
 quizQuestion.innerHTML = answerList.prompts[quizPosition];
 var scoreCount = 0;
-//scoreBoard.innerText = `Score: ${scoreCount}`;
+
+var timeSet = 60;
+timeClock.innerText = `Time remaining: ${timeSet}`;
 
 function submit(event) {
     event.preventDefault();
     var userAnswer = document.querySelector('input[name="choices"]:checked');
     // Returns value of any checked radio
     if (userAnswer.value === answerList.answers[quizPosition]) { // Basic If check for if answer is "right"
+        // Correct answers will increase the time on the ticker
+        timeSet += 15; 
         legendText.innerHTML = 'Correct!';
         scoreCount++;
         savedAnswers.push(userAnswer.value);
         advanceCheck();
     } else if (userAnswer.value !== answerList.answers[quizPosition]) {
+        // Wrong answers decrease time left
+        timeSet -= 15;
         legendText.innerHTML = 'Wrong!';
-        scoreCount--;
         savedAnswers.push(userAnswer.value);
         advanceCheck();
     } else { 
@@ -56,15 +62,25 @@ function advanceCheck() { // Advances questions and recognizes when user reaches
 
 function endGame() { // Function to end the game and display the final score
     questionLabel.innerText = 'Game Over';
-
+    timeClock.innerText = '';
+    clearInterval(interval);
     if (scoreCount === 3) {
         quizQuestion.innerText = `You got an ${grades[0]}!`;
     } else if (scoreCount === 2) {
-        quizQuestion.innerText = `You got an ${grades[1]}!`;
+        quizQuestion.innerText = `You got a ${grades[1]}!`;
     } else {
         quizQuestion.innerText = `You got an ${grades[5]}!`;
     }
     questionForm.style.display = 'none';
 }
 
+function timer () { // Timer ticks down, ending the game prematurely if it ticks to zero
+    timeSet--;
+    timeClock.innerText = `Time remaining: ${timeSet}`;
+    if(timeSet === 0) {
+        endGame();
+    }
+}
+
+var interval = setInterval(timer, 1000);
 submitButton.addEventListener("click", submit);
