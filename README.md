@@ -17,6 +17,7 @@ To use, just click the "Start" button and answer the questions in sequence. Your
 ## Credits
 
 Credit for the CSS reset goes to simple.css, a CSS framework that helped me get the project looking nice in less time than it would have taken if I wrote the CSS myself.
+
 ![Link](https://github.com/kevquirk/simple.css)
 
 ## License
