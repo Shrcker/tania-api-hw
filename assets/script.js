@@ -128,9 +128,6 @@ function startQuiz (event) { // Initalize the start of the quiz
     startBtn.style.display = 'none';
     timeInterval = setInterval(timeSetup, 1000);
     initQuestions();
-    if (document.querySelector('input[name="choices"]:checked').checked === false) {
-        buttons.style.backgroundColor = 'var(--disabled)';
-    }    
 }
 
 function welcomeScreen () { // Function to call the landing page
