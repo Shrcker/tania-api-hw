@@ -16,8 +16,7 @@ const choiceB = document.querySelector('#choiceB');
 const choiceC = document.querySelector('#choiceC');
 const choiceD = document.querySelector('#choiceD');
 
-var timeSc; // declaring valueless variables so that timer can't start prematurely
-var timeInterval;
+var timeInterval; // declaring valueless variable so that timer can't start prematurely
 var scoreCount = 0;
 
 const grades = 'ABCDEF'.split('');
