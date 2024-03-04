@@ -11,9 +11,6 @@ const nameForm = document.querySelector('.nameForm');
 
 const grades = 'ABCDEF'.split('');
 
-var nameList = [];
-var scoreList = [];
-
 const answerList = { // Object to contain valid answer values and their associated questions
     prompts: ['Where\'s A?', 'Where\'s B?', 'Where\'s C?'],
     answers: 'abc'.split('') 
