@@ -62,11 +62,7 @@ function advanceCheck() { // Advances questions and recognizes when user reaches
     } else { // If game is not over, it will flip through the answers array, simulating a progressing quiz
         quizPosition++;
         ribbon.innerHTML = `Question ${quizPosition + 1}:`
-        quizQuestion.innerHTML = answerList.prompts[quizPosition];
-        choiceA.innerHTML = answerList.possibleA[quizPosition];
-        choiceB.innerHTML = answerList.possibleB[quizPosition];
-        choiceC.innerHTML = answerList.possibleC[quizPosition];
-        choiceD.innerHTML = answerList.possibleD[quizPosition];
+        initQuestions();
     }
 }
 
@@ -109,15 +105,11 @@ function startQuiz (event) { // Initalize the start of the quiz
     scoreCount = 0; // Score is reset every restart
     ribbon.innerHTML = `Question ${quizPosition + 1}:`;
     quizQuestion.innerHTML = answerList.prompts[quizPosition];
-    choiceA.innerHTML = answerList.possibleA[quizPosition];
-    choiceB.innerHTML = answerList.possibleB[quizPosition];
-    choiceC.innerHTML = answerList.possibleC[quizPosition];
-    choiceD.innerHTML = answerList.possibleD[quizPosition];
     timer.innerText = `Time remaining: ${timeSc}`;
     radioForm.style.display = 'block';
     startBtn.style.display = 'none';
-
     timeInterval = setInterval(timeSetup, 1000);
+    initQuestions();
 }
 
 function welcomeScreen () {
@@ -129,6 +121,15 @@ function welcomeScreen () {
     restart.style.display = 'none';
     restartBtn.style.display = 'none';
     timer.innerHTML = '';
+    
+}
+
+function initQuestions () { // Function to change the quiz questions according to the current index.
+    quizQuestion.innerHTML = answerList.prompts[quizPosition];
+    choiceA.innerHTML = answerList.possibleA[quizPosition];
+    choiceB.innerHTML = answerList.possibleB[quizPosition];
+    choiceC.innerHTML = answerList.possibleC[quizPosition];
+    choiceD.innerHTML = answerList.possibleD[quizPosition];
 }
 
 submitBtn.addEventListener('click', submit);
