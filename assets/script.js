@@ -22,12 +22,25 @@ var scoreCount = 0;
 const grades = 'ABCDEF'.split('');
 
 const answerList = { // Object to contain valid answer values and their associated questions, shares index
-    prompts: ['Where\'s A?', 'Where\'s B?', 'Where\'s C?'],
-    correctAns: 'acc'.split(''),
-    possibleA: ['Here', 'There', 'Everywhere'],
-    possibleB: ['There', 'Kansas', 'Missouri'],
-    possibleC: ['Florida', 'Top of Appalachia', 'Japan'],
-    possibleD: ['The Moon', 'The Mouse has it', 'The Wizard']
+    prompts: ['Which HTML Element could be used to render a line break?', 'Who are we writing code for?', 'What is the DOM?',
+                'How do we create a variable whose data can\'t be changed?', 'What kind of data is used to display text?', 
+                'Which HTML Semantic could be used to create a section for a sidebar?', 'Math.random will <b>never</b> fetch which number?',
+                'Which is <b>not</b> correct CSS syntax?', 'Which of the following values is a boolean?', 'Which is the proper way to call a CSS variable?',
+                'What\'s the proper way to call a CSS class in JavaScript?', 'Which HTML Element would be best used for a hyperlink on a page?'],
+
+    correctAns: 'acdbadaccbad'.split(''),
+
+    possibleA: ['<br>', 'Our employers', 'Document Orientation Model', 'var', 'string', '<div>', '1', 'background: blue 10px 20px/50px 50px', '0/1', 'var(variable)',
+                'document.querySelector(\'.class\')', '<link></link>'],
+
+    possibleB: ['<p></p>', 'Ourselves', 'Dominion Overlay Model', 'const', 'int', '<article>', '0', 'transition: width 2s', 'null/undefined', 'var(--variable)', 
+                'document.getElementById(\'class\')', '<p id="link"></p>'],
+
+    possibleC: ['<span></span>', 'The Computer', 'Draft Officiating Model', 'perm', 'boolean', '<nav>', '0.001', 'flex: auto, 2, 100px', 'true/false', 
+                '--variable', 'document.querySelector(class)', '<span></span>'],
+
+    possibleD: ['<b>', 'For other programmers', 'Document Object Model', 'let', 'bigInt', '<aside>', '0.2404938', 'border-block: 5px solid red', 'yes/no', 
+                'const(--constant)', 'document.getElementByClass(\'class\')', '<a></a>']
 }
 var quizPosition = 0; // Index for answerList[]
 var timeSc = 60;
@@ -73,6 +86,7 @@ function endGame() { // Function to end the game and display the final score
     nameForm.style.display = 'block';
     restart.style.display = 'block';
     restartBtn.style.display = 'block';
+    
     clearInterval(timeInterval);
     if (scoreCount === 3) {
         quizQuestion.innerText = `You got an ${grades[0]}! Score: 3`;
@@ -102,6 +116,7 @@ function saveEntry (event) {
 
 function startQuiz (event) { // Initalize the start of the quiz
     event.preventDefault();
+    quizPosition = 0;
     scoreCount = 0; // Score is reset every restart
     ribbon.innerHTML = `Question ${quizPosition + 1}:`;
     quizQuestion.innerHTML = answerList.prompts[quizPosition];
@@ -126,10 +141,10 @@ function welcomeScreen () {
 
 function initQuestions () { // Function to change the quiz questions according to the current index.
     quizQuestion.innerHTML = answerList.prompts[quizPosition];
-    choiceA.innerHTML = answerList.possibleA[quizPosition];
-    choiceB.innerHTML = answerList.possibleB[quizPosition];
-    choiceC.innerHTML = answerList.possibleC[quizPosition];
-    choiceD.innerHTML = answerList.possibleD[quizPosition];
+    choiceA.innerText = answerList.possibleA[quizPosition];
+    choiceB.innerText = answerList.possibleB[quizPosition];
+    choiceC.innerText = answerList.possibleC[quizPosition];
+    choiceD.innerText = answerList.possibleD[quizPosition];
 }
 
 submitBtn.addEventListener('click', submit);
