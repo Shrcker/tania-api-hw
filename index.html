@@ -20,23 +20,23 @@
             <form id="mainForm">
                 <fieldset>
                     <legend>Choose your answer</legend>
-                    <div id="radioForm">
-                        <input type="radio" id="choiceA" name="choices" value="a"/>
-                        <label for="choiceA">A</label>
-                        <input type="radio" id="choiceB" name="choices" value="b"/>
-                        <label for="choiceB">B</label>
-                        <input type="radio" id="choiceC" name="choices" value="c"/>
-                        <label for="choiceC">C</label>
+                    <div class="radioForm">
+                        <input type="radio" id="choiceA" class="radioForm" name="choices" value="a"/>
+                        <label for="choiceA" class="radioForm">A</label>
+                        <input type="radio" id="choiceB" class="radioForm" name="choices" value="b"/>
+                        <label for="choiceB" class="radioForm">B</label>
+                        <input type="radio" id="choiceC" class="radioForm" name="choices" value="c"/>
+                        <label for="choiceC" class="radioForm">C</label>
                     </div>
                     <div>
-                        <button id="submitBtn" type="submit">Submit</button>
+                        <button id="submitBtn" class="radioForm" type="submit">Submit</button>
                     </div>
                 </fieldset>
             </form>
             <form class="nameForm">
                 <legend class = "nameForm">Save your score!</legend>
                 <label class ="nameform">Name:</label><br>
-                <input type="text" id="nameField" class="nameForm"/>
+                <input type="text" id="nameInput" class="nameForm"/>
                 <button type="submit" id="nameEntry" class="nameForm">Submit</button>
             </form>
         </main>

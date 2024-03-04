@@ -1,17 +1,17 @@
 const buttonA = document.querySelector('#choiceA');
 const buttonB = document.querySelector('#choiceB');
 const buttonC = document.querySelector('#choiceC');
-const questionForm = document.querySelector('#mainForm > *');
-const radioForm = document.querySelector('#radioForm');
-const submitButton = document.querySelector('#submitBtn');
-const legendText = document.querySelector('legend');
-const questionLabel = document.querySelector('#ribbon');
+const mainForm = document.querySelector('#mainForm > *');
+const radioForm = document.querySelector('.radioForm');
+const submitBtn = document.querySelector('#submitBtn');
+const legend = document.querySelector('legend');
+const ribbon = document.querySelector('#ribbon');
 const quizQuestion = document.querySelector('#question');
 const scoreBoard = document.querySelector('#score');
-const timeClock = document.querySelector('#timer');
+const timer = document.querySelector('#timer');
 const nameEntryBtn = document.querySelector('#nameEntry');
-const nameField = document.querySelector('#nameField');
-const entryField = document.querySelector('#nameForm');
+const nameInput = document.querySelector('#nameInput');
+const nameForm = document.querySelector('.nameForm');
 
 const grades = 'ABCDEF'.split('');
 
@@ -24,12 +24,12 @@ const answerList = { // Object to contain valid answer values and their associat
 }
 const savedAnswers = [];
 var quizPosition = 0; // Index for answerList[]
-questionLabel.innerHTML = `Question ${quizPosition + 1}:`; // Initializes Question count
+ribbon.innerHTML = `Question ${quizPosition + 1}:`; // Initializes Question count
 quizQuestion.innerHTML = answerList.prompts[quizPosition];
 var scoreCount = 0;
 
-var timeSet = 60;
-timeClock.innerText = `Time remaining: ${timeSet}`;
+var timeSc = 60;
+timer.innerText = `Time remaining: ${timeSc}`;
 
 function submit(event) {
     event.preventDefault();
@@ -37,19 +37,19 @@ function submit(event) {
     // Returns value of any checked radio
     if (userAnswer.value === answerList.answers[quizPosition]) { // Basic If check for if answer is "right"
         // Correct answers will increase the time on the ticker
-        timeSet += 15; 
-        legendText.innerHTML = 'Correct!';
+        timeSc += 15; 
+        legend.innerHTML = 'Correct!';
         scoreCount++;
         savedAnswers.push(userAnswer.value);
         advanceCheck();
     } else if (userAnswer.value !== answerList.answers[quizPosition]) {
         // Wrong answers decrease time left
-        timeSet -= 15;
-        legendText.innerHTML = 'Wrong!';
+        timeSc -= 15;
+        legend.innerHTML = 'Wrong!';
         savedAnswers.push(userAnswer.value);
         advanceCheck();
     } else { 
-        legendText.innerHTML = "Please select an answer first";
+        legend.innerHTML = "Please select an answer first";
     }
     userAnswer.checked = false;
     console.log(answerList.answers[quizPosition]); //debug to monitor which question quiz is on
@@ -61,14 +61,14 @@ function advanceCheck() { // Advances questions and recognizes when user reaches
         endGame();
         } else {
             quizPosition++;
-            questionLabel.innerHTML = `Question ${quizPosition + 1}:`
+            ribbon.innerHTML = `Question ${quizPosition + 1}:`
             quizQuestion.innerHTML = answerList.prompts[quizPosition];
         }
 }
 
 function endGame() { // Function to end the game and display the final score
-    questionLabel.innerText = 'Game Over';
-    timeClock.innerText = '';
+    ribbon.innerText = 'Game Over';
+    timer.innerText = '';
     clearInterval(interval);
     if (scoreCount === 3) {
         quizQuestion.innerText = `You got an ${grades[0]}! Score: 3`;
@@ -77,25 +77,25 @@ function endGame() { // Function to end the game and display the final score
     } else {
         quizQuestion.innerText = `You got an ${grades[5]}! \n Score: ${scoreCount}`;
     }
-    questionForm.style.display = 'none';
+    mainForm.style.display = 'none';
 }
 
-function timer () { // Timer ticks down, ending the game prematurely if it ticks to zero
-    timeSet--;
-    timeClock.innerText = `Time remaining: ${timeSet}`;
-    if(timeSet === 0) {
+function timeSetup () { // Timer ticks down, ending the game prematurely if it ticks to zero
+    timeSc--;
+    timer.innerText = `Time remaining: ${timeSc}`;
+    if(timeSc === 0) {
         endGame();
     }
 }
 
 function saveEntry (event) {
     event.preventDefault();
-    localStorage.setItem('name', JSON.stringify(nameField.value));
+    localStorage.setItem('name', JSON.stringify(nameInput.value));
     localStorage.setItem('score', JSON.stringify(scoreCount));
     quizQuestion.innerText = 'Saved!';
-    entryField.style.display = 'none';
+    nameForm.style.display = 'none';
 }
 
 var interval = setInterval(timer, 1000);
-submitButton.addEventListener("click", submit);
+submitBtn.addEventListener("click", submit);
 nameEntryBtn.addEventListener('click', saveEntry);
