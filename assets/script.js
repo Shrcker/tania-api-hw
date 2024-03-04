@@ -1,28 +1,27 @@
+// Initializing all API selectors
 const radioForm = document.querySelector('.radioForm');
 const submitBtn = document.querySelector('#submitBtn');
 const legend = document.querySelector('legend');
 const ribbon = document.querySelector('#ribbon');
 const quizQuestion = document.querySelector('#question');
-const scoreBoard = document.querySelector('#score');
 const timer = document.querySelector('#timer');
-const nameEntryBtn = document.querySelector('#nameEntry');
+const nameSubmit = document.querySelector('#nameSubmit');
 const nameInput = document.querySelector('#nameInput');
 const nameForm = document.querySelector('.nameForm');
+const startBtn = document.querySelector('#startBtn');
+
+var timeInterval; // declaring valueless variable so that timer can't start prematurely
 
 const grades = 'ABCDEF'.split('');
 
-const answerList = { // Object to contain valid answer values and their associated questions
+const answerList = { // Object to contain valid answer values and their associated questions, shares index
     prompts: ['Where\'s A?', 'Where\'s B?', 'Where\'s C?'],
     answers: 'abc'.split('') 
 }
-const savedAnswers = [];
 var quizPosition = 0; // Index for answerList[]
-ribbon.innerHTML = `Question ${quizPosition + 1}:`; // Initializes Question count
-quizQuestion.innerHTML = answerList.prompts[quizPosition];
 var scoreCount = 0;
-
 var timeSc = 60;
-timer.innerText = `Time remaining: ${timeSc}`;
+
 
 function submit(event) {
     event.preventDefault();
@@ -33,13 +32,11 @@ function submit(event) {
         timeSc += 15; 
         legend.innerHTML = 'Correct!';
         scoreCount++;
-        savedAnswers.push(userAnswer.value);
         advanceCheck();
     } else if (userAnswer.value !== answerList.answers[quizPosition]) {
         // Wrong answers decrease time left
         timeSc -= 15;
         legend.innerHTML = 'Wrong!';
-        savedAnswers.push(userAnswer.value);
         advanceCheck();
     } else { 
         legend.innerHTML = "Please select an answer first";
@@ -52,25 +49,26 @@ function advanceCheck() { // Advances questions and recognizes when user reaches
     if (quizPosition === answerList.answers.length - 1) {
         quizPosition = 0;
         endGame();
-        } else {
-            quizPosition++;
-            ribbon.innerHTML = `Question ${quizPosition + 1}:`
-            quizQuestion.innerHTML = answerList.prompts[quizPosition];
-        }
+    } else {
+        quizPosition++;
+        ribbon.innerHTML = `Question ${quizPosition + 1}:`
+        quizQuestion.innerHTML = answerList.prompts[quizPosition];
+    }
 }
 
 function endGame() { // Function to end the game and display the final score
     ribbon.innerText = 'Game Over';
     timer.innerText = '';
-    clearInterval(interval);
+    radioForm.style.display = 'none';
+    nameForm.style.display = 'block';
+    clearInterval(timeInterval);
     if (scoreCount === 3) {
         quizQuestion.innerText = `You got an ${grades[0]}! Score: 3`;
-    } else if (scoreCount === 2 || 1) {
+    } else if (scoreCount === (2 || 1)) {
         quizQuestion.innerText = `You got a ${grades[1]}! Score: 2`;
     } else {
         quizQuestion.innerText = `You got an ${grades[5]}! \n Score: ${scoreCount}`;
     }
-    radioForm.style.display = 'none';
 }
 
 function timeSetup () { // Timer ticks down, ending the game prematurely if it ticks to zero
@@ -89,6 +87,24 @@ function saveEntry (event) {
     nameForm.style.display = 'none';
 }
 
-var interval = setInterval(timer, 1000);
-submitBtn.addEventListener("click", submit);
-nameEntryBtn.addEventListener('click', saveEntry);
+function startQuiz (event) {
+    event.preventDefault();
+    ribbon.innerHTML = `Question ${quizPosition + 1}:`;
+    quizQuestion.innerHTML = answerList.prompts[quizPosition];
+    timer.innerText = `Time remaining: ${timeSc}`;
+    radioForm.style.display = 'block';
+    startBtn.style.display = 'none';
+    timeInterval = setInterval(timeSetup, 1000);
+}
+
+function welcomeScreen () {
+    ribbon.innerHTML = 'Welcome to the Coding Quiz!<br>Please press start to continue.';
+    radioForm.style.display = 'none';
+    nameForm.style.display = 'none';
+    timer.innerHTML = '';
+}
+
+submitBtn.addEventListener('click', submit);
+nameSubmit.addEventListener('click', saveEntry);
+startBtn.addEventListener('click', startQuiz);
+welcomeScreen(); // Quiz always starts at its landing page
