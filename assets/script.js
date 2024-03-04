@@ -16,7 +16,8 @@ const choiceB = document.querySelector('#choiceB');
 const choiceC = document.querySelector('#choiceC');
 const choiceD = document.querySelector('#choiceD');
 
-var timeInterval; // declaring valueless variable so that timer can't start prematurely
+var timeSc; // declaring valueless variables so that timer can't start prematurely
+var timeInterval;
 var scoreCount = 0;
 
 const grades = 'ABCDEF'.split('');
@@ -43,21 +44,19 @@ const answerList = { // Object to contain valid answer values and their associat
                 'const(--constant)', 'document.getElementByClass(\'class\')', '<a></a>']
 }
 var quizPosition = 0; // Index for answerList[]
-var timeSc = 60;
-
 
 function submit(event) {
     event.preventDefault();
     var userAnswer = document.querySelector('input[name="choices"]:checked');
     // Returns value of any checked radio
     if (userAnswer.value === answerList.correctAns[quizPosition]) { // Basic If check for if answer is "right"
-        // Correct correctAns will increase the time on the ticker
+        // Correct answers will increase the time on the ticker
         timeSc += 15; 
         legend.innerHTML = 'Correct!';
         scoreCount++;
         advanceCheck();
     } else if (userAnswer.value !== answerList.correctAns[quizPosition]) {
-        // Wrong correctAns decrease time left
+        // Wrong answers decrease time left
         timeSc -= 15;
         legend.innerHTML = 'Wrong!';
         advanceCheck();
@@ -98,7 +97,7 @@ function endGame() { // Function to end the game and display the final score
 }
 
 function timeSetup () { // Timer ticks down, ending the game prematurely if it ticks to zero
-    timeSc = 60; // Initalized total time just in case of potential errors
+    
     timeSc--;
     timer.innerText = `Time remaining: ${timeSc}`;
     if(timeSc === 0) {
@@ -116,6 +115,7 @@ function saveEntry (event) {
 
 function startQuiz (event) { // Initalize the start of the quiz
     event.preventDefault();
+    timeSc = 30; // Initalized total time just in case of potential errors
     quizPosition = 0;
     scoreCount = 0; // Score is reset every restart
     ribbon.innerHTML = `Question ${quizPosition + 1}:`;
@@ -129,7 +129,7 @@ function startQuiz (event) { // Initalize the start of the quiz
 
 function welcomeScreen () {
     ribbon.innerHTML = 'Welcome to the Coding Quiz!<br>Please press start to continue.';
-    quizQuestion.innerHTML = 'You will have 60 seconds to answer each question, but correct correctAns will increase your time!';
+    quizQuestion.innerHTML = 'You will have 30 seconds to answer each question, but correct correctAns will increase your time!';
     startBtn.style.display = 'block';
     radioForm.style.display = 'none';
     nameForm.style.display = 'none';
