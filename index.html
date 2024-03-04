@@ -13,9 +13,10 @@
             <h1>Welcome to the Coding Quiz!</h1>
         </header>
         <main>
-            <p id="timer"></p>
-            <h3 id="ribbon"></h3>
-            <p id="question"></p>
+            <p class="topText"id="timer"></p>
+            <h3 class="topText" id="ribbon">Welcome to the Coding Quiz!<br>Please press start to continue.</h3>
+            <p class="topText" id="question">You will have 60 seconds to answer each question, but correct answers will increase your time!</p>
+            <button id="startBtn" type="button">Start Quiz</button>
             <form id="mainForm">
                 <fieldset>
                     <legend>Choose your answer</legend>
@@ -32,13 +33,12 @@
                     </div>
                 </fieldset>
             </form>
-            <form id="nameForm">
-                <legend>Save your score!</legend>
-                <label>Name:</label><br>
-                <input type="text" id="nameField"/>
-                <button type="submit" id="nameEntry">Submit</button>
+            <form class="nameForm">
+                <legend class = "nameForm">Save your score!</legend>
+                <label class ="nameform">Name:</label><br>
+                <input type="text" id="nameField" class="nameForm"/>
+                <button type="submit" id="nameEntry" class="nameForm">Submit</button>
             </form>
-            <p></p>
         </main>
         <script src="./assets/script.js"></script>
     </body>
