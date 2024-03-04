@@ -9,6 +9,8 @@ const nameSubmit = document.querySelector('#nameSubmit');
 const nameInput = document.querySelector('#nameInput');
 const nameForm = document.querySelector('.nameForm');
 const startBtn = document.querySelector('#startBtn');
+const restart = document.querySelector('.restart');
+const restartBtn = document.querySelector('#restartBtn');
 
 var timeInterval; // declaring valueless variable so that timer can't start prematurely
 
@@ -61,6 +63,8 @@ function endGame() { // Function to end the game and display the final score
     timer.innerText = '';
     radioForm.style.display = 'none';
     nameForm.style.display = 'block';
+    restart.style.display = 'block';
+    restartBtn.style.display = 'block';
     clearInterval(timeInterval);
     if (scoreCount === 3) {
         quizQuestion.innerText = `You got an ${grades[0]}! Score: 3`;
@@ -72,6 +76,7 @@ function endGame() { // Function to end the game and display the final score
 }
 
 function timeSetup () { // Timer ticks down, ending the game prematurely if it ticks to zero
+    timeSc = 60; // Initalized total time just in case of potential errors
     timeSc--;
     timer.innerText = `Time remaining: ${timeSc}`;
     if(timeSc === 0) {
@@ -99,12 +104,17 @@ function startQuiz (event) {
 
 function welcomeScreen () {
     ribbon.innerHTML = 'Welcome to the Coding Quiz!<br>Please press start to continue.';
+    quizQuestion.innerHTML = 'You will have 60 seconds to answer each question, but correct answers will increase your time!';
+    startBtn.style.display = 'block';
     radioForm.style.display = 'none';
     nameForm.style.display = 'none';
+    restart.style.display = 'none';
+    restartBtn.style.display = 'none';
     timer.innerHTML = '';
 }
 
 submitBtn.addEventListener('click', submit);
 nameSubmit.addEventListener('click', saveEntry);
 startBtn.addEventListener('click', startQuiz);
+restartBtn.addEventListener('click', welcomeScreen);
 welcomeScreen(); // Quiz always starts at its landing page
