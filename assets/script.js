@@ -14,8 +14,10 @@ const restartBtn = document.querySelector('#restartBtn');
 const choiceA = document.querySelector('#choiceA');
 const choiceB = document.querySelector('#choiceB');
 const choiceC = document.querySelector('#choiceC');
+const choiceD = document.querySelector('#choiceD');
 
 var timeInterval; // declaring valueless variable so that timer can't start prematurely
+var scoreCount = 0;
 
 const grades = 'ABCDEF'.split('');
 
@@ -24,10 +26,10 @@ const answerList = { // Object to contain valid answer values and their associat
     correctAns: 'acc'.split(''),
     possibleA: ['Here', 'There', 'Everywhere'],
     possibleB: ['There', 'Kansas', 'Missouri'],
-    possibleC: ['Florida', 'Top of Appalachia', 'Japan']
+    possibleC: ['Florida', 'Top of Appalachia', 'Japan'],
+    possibleD: ['The Moon', 'The Mouse has it', 'The Wizard']
 }
 var quizPosition = 0; // Index for answerList[]
-var scoreCount = 0;
 var timeSc = 60;
 
 
@@ -57,13 +59,14 @@ function advanceCheck() { // Advances questions and recognizes when user reaches
     if (quizPosition === answerList.correctAns.length - 1) {
         quizPosition = 0;
         endGame();
-    } else {
+    } else { // If game is not over, it will flip through the answers array, simulating a progressing quiz
         quizPosition++;
         ribbon.innerHTML = `Question ${quizPosition + 1}:`
         quizQuestion.innerHTML = answerList.prompts[quizPosition];
         choiceA.innerHTML = answerList.possibleA[quizPosition];
         choiceB.innerHTML = answerList.possibleB[quizPosition];
         choiceC.innerHTML = answerList.possibleC[quizPosition];
+        choiceD.innerHTML = answerList.possibleD[quizPosition];
     }
 }
 
@@ -101,13 +104,15 @@ function saveEntry (event) {
     nameForm.style.display = 'none';
 }
 
-function startQuiz (event) {
+function startQuiz (event) { // Initalize the start of the quiz
     event.preventDefault();
+    scoreCount = 0; // Score is reset every restart
     ribbon.innerHTML = `Question ${quizPosition + 1}:`;
     quizQuestion.innerHTML = answerList.prompts[quizPosition];
     choiceA.innerHTML = answerList.possibleA[quizPosition];
     choiceB.innerHTML = answerList.possibleB[quizPosition];
     choiceC.innerHTML = answerList.possibleC[quizPosition];
+    choiceD.innerHTML = answerList.possibleD[quizPosition];
     timer.innerText = `Time remaining: ${timeSc}`;
     radioForm.style.display = 'block';
     startBtn.style.display = 'none';
