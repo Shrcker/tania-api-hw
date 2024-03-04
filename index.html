@@ -15,18 +15,18 @@
         <main>
             <p class="topText"id="timer"></p>
             <h3 class="topText" id="ribbon">Welcome to the Coding Quiz!<br>Please press start to continue.</h3>
-            <p class="topText" id="question">You will have 60 seconds to answer each question, but correct answers will increase your time!</p>
+            <p class="topText" id="question">You will have 60 seconds to answer each question, but correct correctAns will increase your time!</p>
             <button id="startBtn" type="button">Start Quiz</button>
             <form class="radioForm">
                 <fieldset class="radioForm">
                     <legend class="radioForm">Choose your answer</legend>
                     <div class="radioForm">
-                        <input type="radio" id="choiceA" class="radioForm" name="choices" value="a"/>
-                        <label for="choiceA" class="radioForm">A</label>
-                        <input type="radio" id="choiceB" class="radioForm" name="choices" value="b"/>
-                        <label for="choiceB" class="radioForm">B</label>
-                        <input type="radio" id="choiceC" class="radioForm" name="choices" value="c"/>
-                        <label for="choiceC" class="radioForm">C</label>
+                        <input type="radio" class="radioForm" name="choices" value="a"/>
+                        <label for="choiceA" class="radioForm" id="choiceA">A</label>
+                        <input type="radio" class="radioForm" name="choices" value="b"/>
+                        <label for="choiceB" class="radioForm" id="choiceB">B</label>
+                        <input type="radio" class="radioForm" name="choices" value="c"/>
+                        <label for="choiceC" class="radioForm" id="choiceC">C</label>
                     </div>
                     <div>
                         <button id="submitBtn" class="radioForm" type="submit">Submit</button>

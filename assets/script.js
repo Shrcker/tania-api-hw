@@ -11,6 +11,9 @@ const nameForm = document.querySelector('.nameForm');
 const startBtn = document.querySelector('#startBtn');
 const restart = document.querySelector('.restart');
 const restartBtn = document.querySelector('#restartBtn');
+const choiceA = document.querySelector('#choiceA');
+const choiceB = document.querySelector('#choiceB');
+const choiceC = document.querySelector('#choiceC');
 
 var timeInterval; // declaring valueless variable so that timer can't start prematurely
 
@@ -18,7 +21,10 @@ const grades = 'ABCDEF'.split('');
 
 const answerList = { // Object to contain valid answer values and their associated questions, shares index
     prompts: ['Where\'s A?', 'Where\'s B?', 'Where\'s C?'],
-    answers: 'abc'.split('') 
+    correctAns: 'acc'.split(''),
+    possibleA: ['Here', 'There', 'Everywhere'],
+    possibleB: ['There', 'Kansas', 'Missouri'],
+    possibleC: ['Florida', 'Top of Appalachia', 'Japan']
 }
 var quizPosition = 0; // Index for answerList[]
 var scoreCount = 0;
@@ -29,14 +35,14 @@ function submit(event) {
     event.preventDefault();
     var userAnswer = document.querySelector('input[name="choices"]:checked');
     // Returns value of any checked radio
-    if (userAnswer.value === answerList.answers[quizPosition]) { // Basic If check for if answer is "right"
-        // Correct answers will increase the time on the ticker
+    if (userAnswer.value === answerList.correctAns[quizPosition]) { // Basic If check for if answer is "right"
+        // Correct correctAns will increase the time on the ticker
         timeSc += 15; 
         legend.innerHTML = 'Correct!';
         scoreCount++;
         advanceCheck();
-    } else if (userAnswer.value !== answerList.answers[quizPosition]) {
-        // Wrong answers decrease time left
+    } else if (userAnswer.value !== answerList.correctAns[quizPosition]) {
+        // Wrong correctAns decrease time left
         timeSc -= 15;
         legend.innerHTML = 'Wrong!';
         advanceCheck();
@@ -44,17 +50,20 @@ function submit(event) {
         legend.innerHTML = "Please select an answer first";
     }
     userAnswer.checked = false;
-    console.log(answerList.answers[quizPosition]); //debug to monitor which question quiz is on
+    console.log(answerList.correctAns[quizPosition]); //debug to monitor which question quiz is on
 }
 
 function advanceCheck() { // Advances questions and recognizes when user reaches the end of the quiz
-    if (quizPosition === answerList.answers.length - 1) {
+    if (quizPosition === answerList.correctAns.length - 1) {
         quizPosition = 0;
         endGame();
     } else {
         quizPosition++;
         ribbon.innerHTML = `Question ${quizPosition + 1}:`
         quizQuestion.innerHTML = answerList.prompts[quizPosition];
+        choiceA.innerHTML = answerList.possibleA[quizPosition];
+        choiceB.innerHTML = answerList.possibleB[quizPosition];
+        choiceC.innerHTML = answerList.possibleC[quizPosition];
     }
 }
 
@@ -96,15 +105,19 @@ function startQuiz (event) {
     event.preventDefault();
     ribbon.innerHTML = `Question ${quizPosition + 1}:`;
     quizQuestion.innerHTML = answerList.prompts[quizPosition];
+    choiceA.innerHTML = answerList.possibleA[quizPosition];
+    choiceB.innerHTML = answerList.possibleB[quizPosition];
+    choiceC.innerHTML = answerList.possibleC[quizPosition];
     timer.innerText = `Time remaining: ${timeSc}`;
     radioForm.style.display = 'block';
     startBtn.style.display = 'none';
+
     timeInterval = setInterval(timeSetup, 1000);
 }
 
 function welcomeScreen () {
     ribbon.innerHTML = 'Welcome to the Coding Quiz!<br>Please press start to continue.';
-    quizQuestion.innerHTML = 'You will have 60 seconds to answer each question, but correct answers will increase your time!';
+    quizQuestion.innerHTML = 'You will have 60 seconds to answer each question, but correct correctAns will increase your time!';
     startBtn.style.display = 'block';
     radioForm.style.display = 'none';
     nameForm.style.display = 'none';
