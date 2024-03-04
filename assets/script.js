@@ -15,6 +15,7 @@ const choiceA = document.querySelector('#choiceA');
 const choiceB = document.querySelector('#choiceB');
 const choiceC = document.querySelector('#choiceC');
 const choiceD = document.querySelector('#choiceD');
+const buttons = document.querySelector('button');
 
 var timeInterval; // declaring valueless variable so that timer can't start prematurely
 var scoreCount = 0;
@@ -85,18 +86,21 @@ function endGame() { // Function to end the game and display the final score
     restart.style.display = 'block';
     restartBtn.style.display = 'block';
     
-    clearInterval(timeInterval);
-    if (scoreCount === 3) {
-        quizQuestion.innerText = `You got an ${grades[0]}! Score: 3`;
-    } else if (scoreCount === (2 || 1)) {
-        quizQuestion.innerText = `You got a ${grades[1]}! Score: 2`;
-    } else {
-        quizQuestion.innerText = `You got an ${grades[5]}! \n Score: ${scoreCount}`;
+    clearInterval(timeInterval); 
+    if (scoreCount === answerList.correctAns.length) { // Quiz checks your score in proportion to the length of the quiz
+        quizQuestion.innerText = `You got an A! \n Score: ${scoreCount}\n Perfect Score!`;
+    } else if (scoreCount >= Math.round(answerList.correctAns.length * 0.8)) {
+        quizQuestion.innerText = `You got a B! \n Score: ${scoreCount}\n Good Job!`;
+    } else if (scoreCount >= Math.round(answerList.correctAns.length * 0.5)) {
+        quizQuestion.innerText = `You got a C! \n Score: ${scoreCount}\n Keep Going!`;
+    } else if (scoreCount >= Math.round(answerList.correctAns.length * 0.25)) { 
+        quizQuestion.innerText = `You got a D! \n Score: ${scoreCount}\n Take some time to study!`;
+    } else if (scoreCount === 0) {
+        quizQuestion.innerText = `You got an F! \n Score: ${scoreCount}\n Don't be discouraged, try again!`;
     }
 }
 
 function timeSetup () { // Timer ticks down, ending the game prematurely if it ticks to zero
-    
     timeSc--;
     timer.innerText = `Time remaining: ${timeSc}`;
     if(timeSc === 0) {
@@ -104,7 +108,7 @@ function timeSetup () { // Timer ticks down, ending the game prematurely if it t
     }
 }
 
-function saveEntry (event) {
+function saveEntry (event) { // function to save the score to localStorage
     event.preventDefault();
     localStorage.setItem('name', JSON.stringify(nameInput.value));
     localStorage.setItem('score', JSON.stringify(scoreCount));
@@ -124,9 +128,12 @@ function startQuiz (event) { // Initalize the start of the quiz
     startBtn.style.display = 'none';
     timeInterval = setInterval(timeSetup, 1000);
     initQuestions();
+    if (document.querySelector('input[name="choices"]:checked').checked === false) {
+        buttons.style.backgroundColor = 'var(--disabled)';
+    }    
 }
 
-function welcomeScreen () {
+function welcomeScreen () { // Function to call the landing page
     ribbon.innerHTML = 'Welcome to the Coding Quiz!<br>Please press start to continue.';
     quizQuestion.innerHTML = 'You will have 30 seconds to answer each question, but correct correctAns will increase your time!';
     startBtn.style.display = 'block';
@@ -135,7 +142,6 @@ function welcomeScreen () {
     restart.style.display = 'none';
     restartBtn.style.display = 'none';
     timer.innerHTML = '';
-    
 }
 
 function initQuestions () { // Function to change the quiz questions according to the current index.
