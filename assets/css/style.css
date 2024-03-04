@@ -1,0 +1,18 @@
+input[type="radio"] {
+    width: auto;
+    text-align: left;
+}
+
+fieldset {
+    width: auto;
+}
+
+/* Buttons will respond to user input */
+button:hover {
+    background: var(--accent-light);
+}
+
+button:active {
+    background: var(--accent);
+    border: 1px solid transparent;
+}
