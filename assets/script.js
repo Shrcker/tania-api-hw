@@ -103,7 +103,7 @@ function endGame() { // Function to end the game and display the final score
 function timeSetup () { // Timer ticks down, ending the game prematurely if it ticks to zero
     timeSc--;
     timer.innerText = `Time remaining: ${timeSc}`;
-    if(timeSc === 0) {
+    if(timeSc <= 0) {
         endGame();
     }
 }
