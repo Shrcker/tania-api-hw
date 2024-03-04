@@ -1,7 +1,3 @@
-const buttonA = document.querySelector('#choiceA');
-const buttonB = document.querySelector('#choiceB');
-const buttonC = document.querySelector('#choiceC');
-const mainForm = document.querySelector('#mainForm > *');
 const radioForm = document.querySelector('.radioForm');
 const submitBtn = document.querySelector('#submitBtn');
 const legend = document.querySelector('legend');
@@ -77,7 +73,7 @@ function endGame() { // Function to end the game and display the final score
     } else {
         quizQuestion.innerText = `You got an ${grades[5]}! \n Score: ${scoreCount}`;
     }
-    mainForm.style.display = 'none';
+    radioForm.style.display = 'none';
 }
 
 function timeSetup () { // Timer ticks down, ending the game prematurely if it ticks to zero
